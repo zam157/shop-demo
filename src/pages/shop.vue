@@ -23,17 +23,17 @@ const show = $ref(false)
 </script>
 
 <template>
-  <div text-left h-100vh bg-light>
+  <div text-left text-black h-100vh bg-light>
     <van-swipe class="my-swipe" :autoplay="3000" lazy-render>
       <van-swipe-item v-for="image in data.Data.ImageList" :key="image">
-        <img :src="image" h-56 w-full>
+        <img :src="image" h-56 w-full object-cover>
       </van-swipe-item>
     </van-swipe>
 
     <div bg-white border-rounded mb-2 pt-4 pb-2 px-2>
       <div mb-2>
-        <span text-red text-xl mr-6 font-bold>￥89</span>
-        <del><span text-gray text-sm>￥299</span></del>
+        <span text-red text-xl mr-6 font-bold>￥{{ selectedRuleStock?.SalePrice ?? productInfo.StockList[0].SalePrice }}</span>
+        <del><span text-gray text-sm>￥{{ selectedRuleStock?.MarketPrice ?? productInfo.StockList[0].MarketPrice }}</span></del>
       </div>
       <div mb-1>
         {{ productInfo.ItemName }}
@@ -84,7 +84,7 @@ const show = $ref(false)
 
   <van-popup v-model:show="show" position="bottom" :style="{ height: '70vh', borderRadius: '6px 6px 0 0' }">
     <span pos="absolute right-4 top-2" cursor-pointer @click="show = false">x</span>
-    <div h-full p-4 text-left>
+    <div h-full p-4 text-left text-black>
       <div flex>
         <img :src="selectedRuleStock?.ImageUrl ?? productInfo.ImageUrl" border-rounded h-45 w-45 bg-blue>
         <div flex="~ col" justify-end ml-4>
@@ -127,4 +127,4 @@ const show = $ref(false)
 <route lang="yaml">
 meta:
   layout: ''
-  </route>
+</route>
