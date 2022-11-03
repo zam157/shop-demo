@@ -93,16 +93,16 @@ const show = $ref(false)
         </div>
       </div>
 
-      <div v-for="rule, index in productInfo.RuleList" :key="rule.RuleIndex" my-4>
+      <div v-for="rule in productInfo.RuleList" :key="rule.RuleIndex" my-4>
         <span text-sm font-bold>{{ rule.RuleName }}</span>
         <div mt-4 grid grid-cols-3 gap-2>
           <van-button
             v-for="item in rule.RuleValues"
             :key="item.RuleValueIndex"
             round color="#f7f7f7"
-            @click="selectedRule.set(index, item)"
+            @click="selectedRule.set(rule.RuleIndex, item)"
           >
-            <span :class="item.RuleValueIndex === selectedRule.get(index)?.RuleValueIndex ? 'text-red' : 'text-black'">{{ item.RuleValue }}</span>
+            <span :class="item.RuleValueIndex === selectedRule.get(rule.RuleIndex)?.RuleValueIndex ? 'text-red' : 'text-black'">{{ item.RuleValue }}</span>
           </van-button>
         </div>
       </div>
