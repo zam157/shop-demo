@@ -9,7 +9,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Unocss from 'unocss/vite'
 import Layouts from 'vite-plugin-vue-layouts'
 import VueJsx from '@vitejs/plugin-vue-jsx'
-import { VantResolver } from 'unplugin-vue-components/resolvers'
+import { AntDesignVueResolver, VantResolver } from 'unplugin-vue-components/resolvers'
 
 export default defineConfig({
   resolve: {
@@ -46,7 +46,7 @@ export default defineConfig({
     // https://github.com/antfu/vite-plugin-components
     Components({
       dts: true,
-      resolvers: [VantResolver()],
+      resolvers: [VantResolver(), AntDesignVueResolver()],
     }),
 
     // https://github.com/antfu/unocss
