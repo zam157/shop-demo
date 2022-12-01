@@ -33,11 +33,47 @@ const formStates = reactive<FormState[]>([
     subSpecs: ['子规格'],
   },
 ])
-const dataSource = $computed(() => formStates.map(i => ({
-  name: `${i.spec}:${i.subSpecs.join('/')}`,
-  id: '',
-  marketPrice: '',
-})))
+
+function cartesianProduct<T>(allEntries: T[][]): T[][] {
+  return allEntries.reduce<T[][]>(
+    (results, entries) =>
+      results
+        .map(result => entries.map(entry => result.concat([entry])))
+        .reduce((subResults, result) => subResults.concat(result), []), // <-------------
+    [[]],
+  )
+}
+const dataSource = $computed(() => {
+  const allsubSpecs = formStates.map(i => i.subSpecs)
+  const cartesianProductResult = cartesianProduct(allsubSpecs)
+  return cartesianProductResult.map(i => ({
+    name: i.join('/'),
+    id: '',
+    marketPrice: '',
+  }))
+})
+// formStates
+//     .map(i => i.subSpecs)
+//     .reduce(
+//       (a, b) => a.flatMap(x => b.map(y => [...x, y])),
+//       [[]],
+//     )
+//     .map(i => ({
+//       name: i,
+//       id: '',
+//       marketPrice: '',
+//     })),
+//   () => formStates.map(i => ({
+//   name: `${i.spec}:${i.subSpecs.join('/')}`,
+//   id: '',
+//   marketPrice: '',
+// }))
+// const mixed: string[] = []
+// for (const specItem of formStates) {
+//   for (const subSpec of specItem.subSpecs) {
+
+//   }
+// })
 
 const addSubSpec = (index: number) => {
   formStates?.[index].subSpecs.push('')
